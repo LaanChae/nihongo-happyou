@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日语对话学习：東京から九州への新幹線旅行</title>
+    <style>
+        /* 1. 在这里打包您的自定义字体（请确保字体文件和网页在同一个文件夹） */
+        @font-face {
+            font-family: 'MyCustomFont'; 
+            src: url('A-OTF-RyuminPro-Light.otf') format('opentype'); /* 如果是otf，改写为 format('opentype') */
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'MyCustomFont'; 
+            src: url('A-OTF-RyuminPro-Bold.otf') format('opentype'); /* 如果是otf，改写为 format('opentype') */
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body {
+            /* 页面全局字体（标题、语法框、生词表使用电脑默认字体） */
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 1000px; /* 稍微加宽一点，让全屏展示更大气 */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* 核心布局：上方左右分栏 */
+        .main-container {
+            display: flex;
+            width: 100%;
+            gap: 30px;
+            margin-bottom: 30px; /* 给下方的生词表留出空隙 */
+        }
+
+        /* 左侧：对话框 */
+        .dialogue-box {
+            flex: 2;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            /* 2. 专门为对话部分指定自定义字体 */
+            font-family: 'MyCustomFont', 'Helvetica Neue', sans-serif; 
+        }
+
+        .speaker {
+            font-weight: bold;
+            color: #2980b9;
+            margin-right: 10px;
+            font-size: 1.1em;
+            /* font-family: 'Helvetica Neue', Arial, sans-serif; 说话人名字保持默认字体更清晰 */
+        }
+
+        .line {
+            margin-bottom: 20px;
+            font-size: 1.3em; /* 对话字号稍微放大，适合大屏幕展示 */
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 10px;
+        }
+
+        /* 注音假名的样式 */
+        ruby {
+            ruby-align: center;
+        }
+        rt {
+            font-size: 0.55em;
+            color: #7f8c8d;
+        }
+
+        /* 可点击语法点的样式 */
+        .grammar {
+            color: #e74c3c;
+            border-bottom: 2px dotted #e74c3c;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .grammar:hover {
+            background-color: #fdf2f0;
+            border-bottom-style: solid;
+        }
+
+        /* 右侧：语法提示框 */
+        .info-panel {
+            flex: 1;
+            background: #eaf2f8;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .info-panel h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        /* 修复了之前的缩进问题，去掉了 white-space: pre-wrap */
+        .info-content {
+            font-size: 1.05em;
+            color: #34495e;
+            line-height: 1.6;
+        }
+
+        .default-msg {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* 底部：生词表（全宽铺开） */
+        .vocab-box {
+            width: 100%;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid #2ecc71; 
+            box-sizing: border-box;
+        }
+
+        .vocab-box h3 {
+            margin-top: 0;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+
+        .vocab-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 每个单词卡片加宽，适应横向排列 */
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .vocab-item {
+            font-size: 1.1em;
+            color: #34495e;
+            background-color: #f9fbfa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #edf2f0;
+        }
+
+        /* 响应式设计：手机端自动变为上下排列 */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .info-panel {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>東京から九州への新幹線旅行<br><span style="font-size: 0.6em; color: #666;">二外日語（二）発表</span></h1>
+
+    <div class="main-container">
+        <div class="dialogue-box">
+            
+            <div class="line">
+                <span class="speaker"><ruby>玲<rt>れい</rt></ruby>：</span>
+                <ruby>山田<rt>やまだ</rt></ruby><ruby>先輩<rt>せんぱい</rt></ruby>、<ruby>来月<rt>らいげつ</rt></ruby>、<ruby>新幹線<rt>しんかんせん</rt></ruby>で<ruby>東京<rt>とうきょう</rt></ruby>から<ruby>九州<rt>きゅうしゅう</rt></ruby>へ<ruby>旅行<rt>りょこう</rt></ruby>する<span class="grammar" data-id="koto">こと</span>はどうですか。<ruby>私<rt>わたし</rt></ruby>、<ruby>冬<rt>ふゆ</rt></ruby>に<ruby>北海道<rt>ほっかいどう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>っ<span class="grammar" data-id="toki">た<ruby>時<rt>とき</rt></ruby></span>、<ruby>雪<rt>ゆき</rt></ruby>で<ruby>電車<rt>でんしゃ</rt></ruby>が<ruby>止<rt>と</rt></ruby>まって、とても<ruby>疲<rt>つか</rt></ruby>れました。
+            </div>
+
+            <div class="line">
+                <span class="speaker"><ruby>山田<rt>やまだ</rt></ruby>：</span>
+                <span class="grammar" data-id="taihen">へえ、<ruby>大変<rt>たいへん</rt></ruby>だったね。</span>
+            </div>
+
+            <div class="line">
+                <span class="speaker"><ruby>玲<rt>れい</rt></ruby>：</span>
+                はい。ですから、<ruby>今回<rt>こんかい</rt></ruby>は<ruby>南<rt>みなみ</rt></ruby>の<ruby>暖<rt>あたた</rt></ruby>かい<ruby>九州<rt>きゅうしゅう</rt></ruby>へ<ruby>行<rt>い</rt></ruby>く<span class="grammar" data-id="kotonisimasu">ことにします</span>。
+            </div>
+
+            <div class="line">
+                <span class="speaker"><ruby>山田<rt>やまだ</rt></ruby>：</span>
+                <span class="grammar" data-id="soudane">そうだね。</span><ruby>九州<rt>きゅうしゅう</rt></ruby>は<ruby>景色<rt>けしき</rt></ruby>がいいよ。でも、<ruby>東京<rt>とうきょう</rt></ruby>から<ruby>遠<rt>とお</rt></ruby>いから、<ruby>長<rt>なが</rt></ruby>い<ruby>時間<rt>じかん</rt></ruby><ruby>電車<rt>でんしゃ</rt></ruby>に<ruby>乗<rt>の</rt></ruby>ら<span class="grammar" data-id="nakutewaikenai">なくてはいけない</span>よ。<ruby>旅行<rt>りょこう</rt></ruby><span class="grammar" data-id="you"><ruby>用<rt>よう</rt></ruby></span>のクッションを<ruby>持<rt>も</rt></ruby>っていったほうがいいよ。
+            </div>
+
+            <div class="line">
+                <span class="speaker"><ruby>玲<rt>れい</rt></ruby>：</span>
+                はい、<ruby>買<rt>か</rt></ruby>わ<span class="grammar" data-id="nakerebanarimasen">なければなりません</span>ね。あと、<ruby>新幹線<rt>しんかんせん</rt></ruby>の<ruby>席<rt>せき</rt></ruby>でタバコを<ruby>吸<rt>す</rt></ruby>っ<span class="grammar" data-id="tewaikemasen">てはいけません</span>よね。
+            </div>
+
+            <div class="line">
+                <span class="speaker"><ruby>山田<rt>やまだ</rt></ruby>：</span>
+                うん、<ruby>絶対<rt>ぜったい</rt></ruby>にだめだよ。
+            </div>
+
+            <div class="line">
+                <span class="speaker"><ruby>玲<rt>れい</rt></ruby>：</span>
+                <ruby>分<rt>わ</rt></ruby>かりました。あ、もう<ruby>夜<rt>よる</rt></ruby>の９<ruby>時<rt>じ</rt></ruby>です。これから<ruby>駅前<rt>えきまえ</rt></ruby>の<ruby>店<rt>みせ</rt></ruby>へアルバイトに<ruby>行<rt>い</rt></ruby>きます。
+            </div>
+
+            <div class="line">
+                <span class="speaker"><ruby>山田<rt>やまだ</rt></ruby>：</span>
+                <ruby>玲<rt>れい</rt></ruby><span class="grammar" data-id="chan">ちゃん</span><span class="grammar" data-id="kiwotsukete">は、<ruby>夜<rt>よる</rt></ruby>、<ruby>帰<rt>かえ</rt></ruby>ることが<ruby>多<rt>おお</rt></ruby>いから<ruby>気<rt>き</rt></ruby>をつけて</span>ね。
+            </div>
+
+            <div class="line">
+                <span class="speaker"><ruby>玲<rt>れい</rt></ruby>：</span>
+                ありがとうございます。<ruby>失礼<rt>しつれい</rt></ruby>します。
+            </div>
+
+        </div>
+
+        <div class="info-panel">
+            <h3>📖 文法・文型</h3>
+            <div id="info-content" class="info-content">
+                <span class="default-msg">请点击左侧带有<span style="color:#e74c3c; border-bottom: 2px dotted #e74c3c;">红色虚线</span>的词语，这里将显示课本中的语法解析。</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="vocab-box">
+        <h3>📝 新しい言葉</h3>
+        <ul class="vocab-list">
+            <li class="vocab-item"><strong>新幹線</strong>（しんかんせん）<br><span style="font-size: 0.85em; color: #7f8c8d;">新干线</span></li>
+            <li class="vocab-item"><strong>景色</strong>（けしき）<br><span style="font-size: 0.85em; color: #7f8c8d;">景色，风景</span></li>
+            <li class="vocab-item"><strong>遠い</strong>（とおい）<br><span style="font-size: 0.85em; color: #7f8c8d;">遥远的</span></li>
+            <li class="vocab-item"><strong>クッション</strong><br><span style="font-size: 0.85em; color: #7f8c8d;">靠垫 (cushion)</span></li>
+            <li class="vocab-item"><strong>席</strong>（せき）<br><span style="font-size: 0.85em; color: #7f8c8d;">座位</span></li>
+            <li class="vocab-item"><strong>絶対</strong>（ぜったい）<br><span style="font-size: 0.85em; color: #7f8c8d;">绝对</span></li>
+            <li class="vocab-item"><strong>駅前</strong>（えきまえ）<br><span style="font-size: 0.85em; color: #7f8c8d;">车站前</span></li>
+        </ul>
+    </div>
+
+    <script>
+        const grammarData = {
+            "koto": "<b>形式名词：こと</b><br><br>属于体言，接在用言连体形后面，起语法作用。在句中可以做主语、宾语等，但没有具体含义。一般可以译为“～之事”或不译出。<br><br>例：旅行する<b>こと</b>はどうですか。（去旅行[这件事]怎么样？）",
+            "toki": "<b>文型：～る（た）時、～</b><br><br>“～る”代表动词词典形，“～た”代表“た形”。<br>- 接词典形时，表示后一个动作进行的时刻；<br>- 接“た形”时，表示前一个动作完成之后的时点，一般译为“～了的时候”。<br><br>例：行っ<b>た時</b>、雪で…（去了[北海道]的时候，因为下雪…）",
+            "taihen": "<b>交流表达：へえ、大変だったね。</b><br><br>意味为“是吧，那可够受的！”。“大変だったね”是“大変でしたね”的简体说法，得知对方受到伤害或负面影响后，用来表示同情、安慰。",
+            "kotonisimasu": "<b>文型：～ことにします</b><br><br>简体形式是“～ことにする”。接在动词连体形后面，表示行为主体的主观性选择、决定或习惯。一般译为“要～”“决定～”。<br><br>例：九州へ行く<b>ことにします</b>。（决定去九州。）",
+            "soudane": "<b>交流表达：そうだね。</b><br><br>意味为“是啊”。是“ですね”的简体说法。用于应答，表示同意对方的意见。",
+            "nakutewaikenai": "<b>文型：～なくてはいけません</b><br><br>本句中使用了简体形式“～なくてはいけない”。接在动词后面，接续方法与接“ない”相同。表示主观认为应该做某事。一般译为“得～”“应该～”。<br><br>例：乗ら<b>なくてはいけない</b>よ。（不得不在车上坐很久。）",
+            "you": "<b>后缀：～用（よう）</b><br><br>接在名词后面，表示“用于什么”的意思。一般译为“～用”。<br><br>例：旅行<b>用</b>のクッション（旅行用的靠垫）。",
+            "nakerebanarimasen": "<b>文型：～なければなりません</b><br><br>接在动词后面，接续方法与接“ない”相同。用于表示义务。一般译为“必须～”“应该～”。<br><br>例：買わ<b>なければなりません</b>ね。（必须得买呢。）",
+            "tewaikemasen": "<b>文型：～てはいけません</b><br><br>接在动词后面，接续方法与接“て”相同。表示阻止、禁止对方做某事。可以译为“不许～”“不要～”“不准～”。<br><br>例：タバコを吸っ<b>てはいけません</b>。（不准吸烟。）",
+            "chan": "<b>后缀：～ちゃん</b><br><br>多接在称呼或名字后面，表示亲昵。多用于家庭成员之间、小孩或关系要好的同龄人、后辈等。<br><br>例：玲<b>ちゃん</b>（小玲）。",
+            "kiwotsukete": "<b>交流表达：～から、気をつけて。</b><br><br>意味为“...要当心”。<br>“から”表示原因，“気をつけて”是“気をつけてください”的简略说法。送客或嘱咐外出的人时经常使用，用于提醒对方多加小心。"
+        };
+
+        const grammarElements = document.querySelectorAll('.grammar');
+        const infoContent = document.getElementById('info-content');
+
+        grammarElements.forEach(el => {
+            el.addEventListener('click', function() {
+                grammarElements.forEach(item => item.style.backgroundColor = 'transparent');
+                this.style.backgroundColor = '#fdf2f0';
+                const id = this.getAttribute('data-id');
+                if (grammarData[id]) {
+                    infoContent.innerHTML = grammarData[id];
+                }
+            });
+        });
+    </script>
+</body>
+</html>
